@@ -43,7 +43,7 @@ $app->post('/mailchimp', function () use($app) {
     }
     
     // Subscribe to mailchimp
-    $retval = $api->listSubscribe($listId, $email, $merge_vars, 'html', $doubleOptIn);
+    $retval = $api->listSubscribe($listId, $email, $merge_vars, 'html', $doubleOptIn, true, true, true);
 
     if ($api->errorCode){
         $app->halt(500,'Unable to run listSubscribe.'.$api->errorCode.': '.$api->errorMessage);
