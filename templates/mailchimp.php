@@ -14,6 +14,8 @@
 http://hooks.rusic.com/mailchimp?email=custom1&listid=123&apikey=abz
 </pre>
 
+<p><strong>Note.</strong> The ID of the rusic entry will be placed in a merge field called RID. You need to add this to the mailchimp list you are adding subscribers to. This ID can then be used for such things as linking to entry etc.</p>
+
 <p>The get parameters are as follows (items in [] are optional).</p>
 
 <ul>

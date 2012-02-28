@@ -34,7 +34,7 @@ class MailChimp extends PHPUnit_Framework_TestCase
         $emailUniq = time();
         $email = 'tom.'.$emailUniq.'@simpleweb.co.uk';
         
-        $fields = array('custom1' => $email, 'custom2' => 'Tom', 'custom3' => 'Holder');
+        $fields = array('custom1' => $email, 'custom2' => 'Tom', 'custom3' => 'Holder', 'id' => 666);
         
         //Do the post.
         $ch = curl_init(LOCAL_URL.$hookUrl); 
@@ -56,6 +56,7 @@ class MailChimp extends PHPUnit_Framework_TestCase
         $this->assertEquals($email, $retval['data'][0]['merges']['EMAIL']);
         $this->assertEquals('Tom', $retval['data'][0]['merges']['FNAME']);
         $this->assertEquals('Holder', $retval['data'][0]['merges']['LNAME']);
+        $this->assertEquals('666', $retval['data'][0]['merges']['RID']);
         
     }
     

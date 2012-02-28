@@ -21,6 +21,7 @@ $app->post('/mailchimp', function () use($app) {
     $email = $app->request()->post($app->request()->get('email'));
     $forename = $app->request()->post($app->request()->get('forename'));
     $surname = $app->request()->post($app->request()->get('surname'));
+    $rid = $app->request()->post('id');
     
     //Make sure we have required data.
     if (empty($email)) {
@@ -33,12 +34,14 @@ $app->post('/mailchimp', function () use($app) {
         $doubleOptIn=true;
     }
     
-
-
     $api = new MCAPI($apiKey);
 
     $merge_vars = array('FNAME'=>$forename, 'LNAME'=>$surname);
 
+    if (!empty($rid)) {
+        $merge_vars['RID'] = $rid;
+    }
+    
     // Subscribe to mailchimp
     $retval = $api->listSubscribe($listId, $email, $merge_vars, 'html', $doubleOptIn);
 
