@@ -4,7 +4,12 @@ require 'Slim/Slim.php';
 //With custom settings
 $app = new Slim();
 
-//GET route
+//Mailchimp help route
+$app->get('/mailchimp', function () use($app) {
+    $app->render('mailchimp.php');
+});
+
+//Mailchimp webhook
 $app->post('/mailchimp', function () use($app) {
 
     require_once 'MCAPI.class.php';
@@ -18,7 +23,7 @@ $app->post('/mailchimp', function () use($app) {
         $app->halt(500,'Your hook is missing required GET parameters.');
     }
     
-    $email = $app->request()->post($app->request()->get('email'));
+    $email = $app->request()->post($emailField);
     $forename = $app->request()->post($app->request()->get('forename'));
     $surname = $app->request()->post($app->request()->get('surname'));
     $rid = $app->request()->post('id');
@@ -53,8 +58,59 @@ $app->post('/mailchimp', function () use($app) {
 
 });
 
-$app->get('/mailchimp', function () use($app) {
-    $app->render('mailchimp.php');
+//Lyris help route
+$app->get('/lyris', function () use($app) {
+    $app->render('lyris.php');
+});
+
+//Lyris webhook
+$app->post('/lyris', function () use($app) {
+    
+	require_once 'LyrisPHP/Lyris.php';
+	
+	$emailsource = $app->request()->get('emailsource');
+	$siteId = $app->request()->get('siteid');
+	$listId = $app->request()->get('listid');
+    $password = $app->request()->get('pass');
+	$forenamesource = $app->request()->get('forenamesource');
+	$surnamesource = $app->request()->get('surnamesource');
+	$ridtarget = $app->request()->get('ridtarget');
+
+	//Make sure we have required data.
+    if (empty($emailsource) || empty($siteId) || empty($listId) || empty($password)) {
+        $app->halt(500,'Your hook is missing required GET parameters.');
+    }
+
+	$email = $app->request()->post($emailsource);
+    $forename = $app->request()->post($forenamesource);
+    $surname = $app->request()->post($surnamesource);
+    $rid = $app->request()->post('id');
+    
+    //Make sure we have required data.
+    if (empty($email)) {
+        $app->halt(500,'Your hook is missing email address.');
+    }
+	
+	$lyris = new Lyris($siteId, $listId, $password);
+	
+	if (!empty($forenamesource) && !empty($forename)) {
+		$lyris->addDemographic(1, $forename);
+	}
+	
+	if (!empty($surnamesource) && !empty($surname)) {
+		$lyris->addDemographic(2, $surname);
+	}
+    
+    if (!empty($ridtarget) && !empty($rid)) {
+        $lyris->addDemographic($ridtarget, $rid);
+    }
+
+	if ($lyris->addContact($email)) {
+		echo 'Ok';
+	} else {
+		echo 'Failed';
+	}
+	
 });
 
 $app->get('/', function () use($app) {

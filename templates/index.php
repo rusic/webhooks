@@ -10,6 +10,7 @@
 
 <ul>
     <li><a href="/mailchimp">Mailchimp</a></li>
+	<li><a href="/lyris">Lyris</a></li>
 </ul>
 
 <?php include 'footer.php' ?>
