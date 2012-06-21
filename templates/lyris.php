@@ -26,6 +26,16 @@ http://hooks.rusic.com/lyris?siteid=1234&listid=999&pass=PASSWORD&emailsource=em
     <li>[<strong>forenamesource</strong>] - the post field to use as forename.</a></li>
     <li>[<strong>surnamesource</strong>] - the post field to use as surname.</a></li>
 	<li>[<strong>ridtarget</strong>] - which field (numeric) to put rusic entry id in to.</a></li>
+	<li>[<strong>custom1source</strong>] - which field holds data for custom 1.</a></li>
+	<li>[<strong>custom1target</strong>] - which field to put custum1 in to.</a></li>
+	<li>[<strong>custom2source</strong>] - which field holds data for custom 2.</a></li>
+	<li>[<strong>custom2target</strong>] - which field to put custum1 in to.</a></li>
+	<li>[<strong>custom3source</strong>] - which field holds data for custom 3.</a></li>
+	<li>[<strong>custom3target</strong>] - which field to put custum1 in to.</a></li>
+	<li>[<strong>custom4source</strong>] - which field holds data for custom 4.</a></li>
+	<li>[<strong>custom4target</strong>] - which field to put custum1 in to.</a></li>
+	<li>[<strong>custom5source</strong>] - which field holds data for custom 5.</a></li>
+	<li>[<strong>custom5target</strong>] - which field to put custum1 in to.</a></li>		
 </ul>
 
 <h2>Web Hook Test Form</h2>
@@ -88,6 +98,9 @@ function UpdatePostAction()
 			
 			<dt><label for="id">Rusic ID</label></dt>
 			<dd><input type="text" id="id" name="id"></dd>
+			
+			<dt><label for="surname">Custom1 Data</label></dt>
+			<dd><input type="text" id="custom1data" name="custom1data"></dd>
 			
 		</dl>
 		
